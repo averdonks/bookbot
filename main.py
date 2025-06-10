@@ -1,24 +1,30 @@
-from stats import get_num_words
-from stats import get_characters_dict
-from stats import characters_dict_to_sorted_list
+from stats import (
+  get_num_words,
+  get_characters_dict,
+  characters_dict_to_sorted_list  
+)
 
 def get_book_text(file_path):
     with open(file_path) as f:
         return f.read()
 
-def main():
+def print_report(path_to_book, num_words, characters_sorted_list):
     print("============ BOOKBOT ============")
-
-    path_to_book = "books/frankenstein.txt"
-    book_text = get_book_text(path_to_book)
     print(f"Analyzing book found at {path_to_book}...")
     print("----------- Word Count ----------")
-    print(f"Found {get_num_words(book_text)} total words")
+    print(f"Found {num_words} total words")
     print(f"--------- Character Count -------")
-    characters_in_book_text = get_characters_dict(book_text)
-    characters_list = characters_dict_to_sorted_list(characters_in_book_text)
-    for c in characters_list:
-        if c["char"].isalpha():
-            print(f"{c["char"]}: {c["num"]}")
+    for dict in characters_sorted_list:
+        if dict["char"].isalpha():
+            print(f"{dict["char"]}: {dict["num"]}")
     print("============== END ==============")
+
+def main():
+    path_to_book = "books/frankenstein.txt"
+    book_text = get_book_text(path_to_book)
+    num_words = get_num_words(book_text)
+    characters_dict = get_characters_dict(book_text)
+    characters_sorted_list = characters_dict_to_sorted_list(characters_dict)
+    print_report(path_to_book, num_words, characters_sorted_list)
+
 main()
