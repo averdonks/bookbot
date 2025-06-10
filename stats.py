@@ -6,7 +6,7 @@ def get_num_words(book_text):
 # into a dictionary. The key is the character and,
 # the value (count) starts at 1. Increment the value by one for
 # all duplicate characters.
-def count_characters(book_text):
+def get_characters_dict(book_text):
     characters = {}
     for c in book_text:
         lower_c = c.lower()
@@ -16,16 +16,12 @@ def count_characters(book_text):
             characters[lower_c] = 1
     return characters
 
-def sort_characters(characters):
+def sort_on(dict):
+    return dict["num"]
 
-    def sort_on(dict):
-        return dict["num"]
-
-    characters_list = []
-    for character in characters:
-        c = dict()
-        c["char"] = character
-        c["num"] = characters[character] 
-        characters_list.append(c)
-        characters_list.sort(reverse=True, key=sort_on)
-    return characters_list
+def characters_dict_to_sorted_list(characters_dict):
+    sorted_list = []
+    for char in characters_dict:
+        sorted_list.append({"char": char, "num": characters_dict[char]})
+    sorted_list.sort(reverse=True, key=sort_on)
+    return sorted_list
